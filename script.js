@@ -1,6 +1,6 @@
 function playSound(e) {
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // Gets corresponding audio for a key
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); // Gets individual key
 
     if (!audio) {
         return; // Stops the function from running on invalid key press
