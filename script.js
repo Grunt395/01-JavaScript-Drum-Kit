@@ -1,10 +1,6 @@
-window.addEventListener("keydown", function(e) {
-    
+function playSound(e) {
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-
-    // console.log(e);
-    // console.log(audio);
 
     if (!audio) {
         return; // Stops the function from running on invalid key press
@@ -13,14 +9,18 @@ window.addEventListener("keydown", function(e) {
     audio.play(); // Plays the audio element
 
     key.classList.add("playing"); // Adds class "playing" to a key
+}
 
-    function removeTransition(e) {
-        console.log(e);
+function removeTransition(e) { 
+    if (e.propertyName !== "transform") {
+        return; // skip if it's not a transform
     }
+    this.classList.remove("playing"); // Removes playing class after alloted time, ie 0.07 seconds
+}
 
-    const keys = document.querySelectorAll(".key"); // Select all keys
+const keys = document.querySelectorAll(".key"); // Select all keys
 
-    keys.forEach(key => key.addEventListener("transitionend", removeTransition)); 
-    // Each key has an event listener, transitionend, added to it, and when a transition is endeing, we will remove it.
+keys.forEach(key => key.addEventListener("transitionend", removeTransition)); 
+// Each key has an event listener, transitionend, added to it, and when a transition is endeing, we will remove it.
 
-});
+window.addEventListener("keydown", playSound); // Event Listener to use playSound function
